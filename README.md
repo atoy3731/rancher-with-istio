@@ -36,7 +36,7 @@ kubectl label namespace cattle-system istio-injection=enabled
 If there are workloads/pods running in your cattle-system namespace already, you'll need to cycle them. Most likely, you'll need:
 ```bash
 kubectl rollout restart -n cattle-system deploy/rancher
-kubectl rollout restrt -n cattle-system deploy/rancher-webhook
+kubectl rollout restart -n cattle-system deploy/rancher-webhook
 ```
 
 Confirm that worked by verifying pods in cattle-system (with the exception of the IGW pods) are now 2/2:
