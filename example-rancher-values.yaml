@@ -1,0 +1,18 @@
+hostname: rancher.example.com  
+replicas: 3
+tls: external
+
+# If providing your own certificate, use this
+ingress:
+  enabled: false
+
+# If using Rancher to create the certificate, use this and modify to your needs
+# See: https://docs.ranchermanager.rancher.io/pages-for-subheaders/install-upgrade-on-a-kubernetes-cluster#5-install-rancher-with-helm-and-your-chosen-certificate-option
+# ingress:
+#   enabled: true
+#   tls:
+#     source: letsEncrypt
+# letsEncrypt:
+#   email: john.doe@example.com
+#   ingress:
+#     class: nginx

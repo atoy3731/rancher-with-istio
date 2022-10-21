@@ -1,0 +1,28 @@
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: allow-rancher-ingress
+  namespace: cattle-system
+spec:
+  selector:
+    matchLabels:
+      app: rancher
+  action: ALLOW
+  rules:
+  - from:
+    - source:
+        ipBlocks:
+          # Set this to the CIDR of your internal K8s CIDR. This is required for websockets
+          - "10.42.0.0/16"
+    to:
+    - operation:
+        ports:
+          - "443"
+          - "80"
+  - from:
+    - source:
+        principals: ["cluster.local/ns/cattle-system/sa/rancher-ingressgateway-service-account"]
+    to:
+    - operation:
+        ports:
+          - "80"

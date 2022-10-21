@@ -1,0 +1,13 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: rancher-dr
+  namespace: istio-system
+spec:
+  host: rancher.cattle-system.svc.cluster.local
+  trafficPolicy:
+    portLevelSettings:
+    - port:
+        number: 443
+      tls:
+        mode: SIMPLE

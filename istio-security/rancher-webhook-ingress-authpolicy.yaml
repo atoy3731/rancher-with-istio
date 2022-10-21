@@ -1,0 +1,16 @@
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: allow-rancher-webhook-ingress
+  namespace: cattle-system
+spec:
+  selector:
+    matchLabels:
+      app: rancher-webhook
+  action: ALLOW
+  rules:
+  - to:
+    - operation:
+        ports:
+          - "9443"
+          - "8777"

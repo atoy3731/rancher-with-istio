@@ -1,0 +1,48 @@
+apiVersion: install.istio.io/v1alpha1
+kind: IstioOperator
+metadata:
+  name: controlplane
+  namespace: istio-system
+spec:
+  components:
+    ingressGateways:
+    - enabled: false
+      name: istio-ingressgateway
+    - enabled: true
+      k8s:
+        hpaSpec:
+          maxReplicas: 3
+          minReplicas: 3
+        service:
+          ports:
+          - name: http
+            port: 80
+            protocol: TCP
+            targetPort: 8080
+          - name: https
+            port: 443
+            protocol: TCP
+            targetPort: 8443
+      label:
+        app: rancher-ingressgateway
+      name: rancher-ingressgateway
+      namespace: cattle-system
+    pilot:
+      enabled: true
+      k8s:
+        hpaSpec:
+          maxReplicas: 3
+          minReplicas: 3
+  meshConfig:
+    outboundTrafficPolicy:
+      mode: ALLOW_ANY
+  values:
+    global:
+      proxy:
+        resources:
+          limits:
+            cpu: 100m
+            memory: 50Mi
+          requests:
+            cpu: 10m
+            memory: 16Mi

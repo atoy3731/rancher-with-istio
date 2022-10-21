@@ -1,0 +1,14 @@
+apiVersion: security.istio.io/v1beta1
+kind: PeerAuthentication
+metadata:
+  name: rancher-peerauth
+  namespace: cattle-system
+spec:
+  selector:
+    matchLabels:
+      app: rancher
+  mtls:
+    mode: STRICT
+  portLevelMtls:
+    443:
+      mode: DISABLE

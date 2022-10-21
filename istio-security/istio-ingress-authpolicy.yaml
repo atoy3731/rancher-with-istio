@@ -1,0 +1,22 @@
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: allow-istio-ingress
+  namespace: cattle-system
+spec:
+  selector:
+    matchLabels:
+      app: rancher-ingressgateway
+  action: ALLOW
+  rules:
+  - to:
+    - operation:
+        ports:
+          - "8080"
+          - "8443"
+
+    # If you want to limit connectivity to your IGW from a specific IP/CIDR.
+    # from:
+    # - source:
+    #     ipBlocks:
+    #       - 1.2.3.4/32
